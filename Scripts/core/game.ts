@@ -14,10 +14,17 @@ var menu: scenes.Menu;
 var play: scenes.Play;
 var end: scenes.End;
 
-var assetData:objects.Asset[] = [
+var assetData: objects.Asset[] = [
     // Add your Assets here
-    {id: "StartButton", src:"../../Assets/images/StartButton.png"},
-    {id: "StartOverButton", src:"../../Assets/images/StartOverButton.png"}
+    { id: "StartButton", src: "../../Assets/images/StartButton.png" },
+    { id: "StartOverButton", src: "../../Assets/images/StartOverButton.png" },
+    { id: "DiceOne", src: "../../Assets/images/DiceOne.png" },
+    { id: "DiceTwo", src: "../../Assets/images/DiceTwo.png" },
+    { id: "DiceThree", src: "../../Assets/images/DiceThree.png" },
+    { id: "DiceFour", src: "../../Assets/images/DiceFour.png" },
+    { id: "DiceFive", src: "../../Assets/images/DiceFive.png" },
+    { id: "DiceSix", src: "../../Assets/images/DiceSix.png" },
+    { id: "RollButton", src: "../../Assets/images/RollButton.png" }
 
 ];
 

@@ -3,6 +3,11 @@ module scenes {
     export class Play extends objects.Scene {
         //PRIVATE INSTANCE VARIABLES ++++++++++++
         private _playLabel: objects.Label;
+        private _rollButton: objects.Button;
+        private _diceOne: createjs.Bitmap;
+        private _diceTwo: createjs.Bitmap;
+
+        private _dices: createjs.Bitmap[];
         
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
@@ -14,15 +19,16 @@ module scenes {
         // Start Method
         public start(): void {
 
+            
+            // add roll button
+            this._rollButton = new objects.Button("RollButton", config.Screen.CENTER_X,
+                config.Screen.CENTER_Y + 180)
+            this.addChild(this._rollButton);
+            this._rollButton.on("click", this._rollButtonClick, this); 
 
-            //Add Play Label
-            this._playLabel = new objects.Label(
-                "PLAY SCENE","60px Consolas", 
-                "#000000", 
-                config.Screen.CENTER_X,config.Screen.CENTER_Y);
-            this.addChild(this._playLabel);
-
-
+            // initialize array of bitmaps
+            this._initializeBitmapArray();
+            
             // add this scene to the global stage container
             stage.addChild(this);
         }
@@ -31,9 +37,55 @@ module scenes {
         public update(): void {
 
         }
-        
+
+
+        private _initializeBitmapArray(): void {
+            this._dices = new Array<createjs.Bitmap>();
+            for (var dice: number = 0; dice < 2; dice++) {
+                this._dices[dice] = new createjs.Bitmap(assets.getResult("DiceOne"));
+                this._dices[dice].x = 122 + (dice * 243);
+                this._dices[dice].y = 153;
+                this.addChild(this._dices[dice]);
+                console.log("Dice" + dice + " " + this._dices[dice]);
+            }
+        }
+
+        private _roll(): string[] {
+            var outCome = [0, 0];
+            var result = [" ", " "];
+            for (var dice: number = 0; dice < 2; dice++) {
+                outCome[dice] = Math.floor((Math.random() * 65) + 1);
+                switch (outCome[dice]) {
+                    case 1:
+                        result[dice] = "1"
+                        break;
+                    case 2:
+                        result[dice] = "2"
+                        break;
+                    case 3:
+                        result[dice] = "3"
+                        break;
+                    case 4:
+                        result[dice] = "4"
+                        break;
+                    case 5:
+                        result[dice] = "5"
+                        break;
+                    case 6:
+                        result[dice] = "6"
+                        break;
+                    default:
+                        break;
+                }
+                
+            }
+            return result;
+        }
         
         //EVENT HANDLERS ++++++++++++++++++++
         
+        private _rollButtonClick(event: createjs.MouseEvent): void {
+
+        }
     }
 }
