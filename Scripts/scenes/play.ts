@@ -52,40 +52,45 @@ module scenes {
 
         private _roll(): string[] {
             var outCome = [0, 0];
-            var result = [" ", " "];
+            var image = [" ", " "];
             for (var dice: number = 0; dice < 2; dice++) {
-                outCome[dice] = Math.floor((Math.random() * 65) + 1);
+                outCome[dice] = Math.floor((Math.random() * 6) + 1);
                 switch (outCome[dice]) {
                     case 1:
-                        result[dice] = "1"
+                        image[dice] = "DiceOne"
                         break;
-                    case 2:
-                        result[dice] = "2"
+                    case 2:                   
+                        image[dice] = "DiceTwo"
                         break;
                     case 3:
-                        result[dice] = "3"
+                        image[dice] = "DiceThree"
                         break;
-                    case 4:
-                        result[dice] = "4"
+                    case 4:                   
+                        image[dice] = "DiceFour"
                         break;
                     case 5:
-                        result[dice] = "5"
+                        image[dice] = "DiceFive"
                         break;
                     case 6:
-                        result[dice] = "6"
+                        image[dice] = "DiceSix"
                         break;
                     default:
                         break;
                 }
                 
             }
-            return result;
+            return image;
         }
         
         //EVENT HANDLERS ++++++++++++++++++++
         
         private _rollButtonClick(event: createjs.MouseEvent): void {
+               var bitmap: string[] = this._roll();
 
+                for (var dice: number = 0; dice < 2; dice++) {
+                    this._dices[dice].image = assets.getResult(bitmap[dice]);
+                    console.log(bitmap[0] + " - " + bitmap[1]);
+                }
         }
     }
 }
