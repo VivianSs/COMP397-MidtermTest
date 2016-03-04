@@ -18,7 +18,7 @@ module scenes {
             this._menuLabel = new objects.Label(
                 "MENU SCENE", "60px Consolas",
                 "#000000",
-                config.Screen.CENTER_X, config.Screen.CENTER_Y);
+                config.Screen.CENTER_X, config.Screen.CENTER_Y, true);
             this.addChild(this._menuLabel);
             
             

@@ -19,6 +19,12 @@ var scenes;
             this._rollButton = new objects.Button("RollButton", config.Screen.CENTER_X, config.Screen.CENTER_Y + 180);
             this.addChild(this._rollButton);
             this._rollButton.on("click", this._rollButtonClick, this);
+            // add Dice one label          
+            this._diceOneLabel = new objects.Label(this._diceOneText, "12px Consolas", "#000000", 142, 318, false);
+            this.addChild(this._diceOneLabel);
+            // add Dice two label 
+            this._diceTwoLabel = new objects.Label(this._diceTwoText, "12px Consolas", "#000000", 388, 318, false);
+            this.addChild(this._diceTwoLabel);
             // initialize array of bitmaps
             this._initializeBitmapArray();
             // add this scene to the global stage container
@@ -29,6 +35,7 @@ var scenes;
         };
         Play.prototype._initializeBitmapArray = function () {
             this._dices = new Array();
+            this._diceLabel = new Array();
             for (var dice = 0; dice < 2; dice++) {
                 this._dices[dice] = new createjs.Bitmap(assets.getResult("DiceOne"));
                 this._dices[dice].x = 122 + (dice * 243);
@@ -36,6 +43,8 @@ var scenes;
                 this.addChild(this._dices[dice]);
                 console.log("Dice" + dice + " " + this._dices[dice]);
             }
+            this._diceOneText = "";
+            this._diceTwoText = "";
         };
         Play.prototype._roll = function () {
             var outCome = [0, 0];
@@ -67,9 +76,39 @@ var scenes;
             }
             return image;
         };
+        Play.prototype._displayLabel = function () {
+            var diceLabel = [" ", " "];
+            var labels = this._roll();
+            for (var dice = 0; dice < 2; dice++) {
+                switch (labels[dice]) {
+                    case "DiceOne":
+                        diceLabel[dice] = "One";
+                        break;
+                    case "DiceTwo":
+                        diceLabel[dice] = "Two";
+                        break;
+                    case "DiceThree":
+                        diceLabel[dice] = "Three";
+                        break;
+                    case "DiceFour":
+                        diceLabel[dice] = "Four";
+                        break;
+                    case "DiceFive":
+                        diceLabel[dice] = "Five";
+                        break;
+                    case "DiceSix":
+                        diceLabel[dice] = "Six";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return diceLabel;
+        };
         //EVENT HANDLERS ++++++++++++++++++++
         Play.prototype._rollButtonClick = function (event) {
             var bitmap = this._roll();
+            var label = this._displayLabel();
             for (var dice = 0; dice < 2; dice++) {
                 this._dices[dice].image = assets.getResult(bitmap[dice]);
                 console.log(bitmap[0] + " - " + bitmap[1]);
